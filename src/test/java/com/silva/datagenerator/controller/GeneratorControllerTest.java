@@ -16,7 +16,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -38,6 +39,18 @@ public class GeneratorControllerTest extends AbstractTest {
       ))
       .build();
 
+  @Nested
+  class Basics{
+    @Test
+    void works() throws Exception {
+      mvc.perform(
+          get("/generator")
+              .contentType(MediaType.APPLICATION_JSON)
+      )
+          .andDo(print())
+          .andExpect(jsonPath("$").value("works!!"));
+    }
+  }
   @Nested
   class OneProperty {
     @Test
@@ -93,11 +106,15 @@ public class GeneratorControllerTest extends AbstractTest {
 
     @Test
     void OnePropertyInteger() throws Exception {
+      var MIN_VALUE=5;
+      var MAX_VALUE=10;
       var request = StructRequest
           .builder()
           .properties(List.of(PropertyRequest
               .builder()
-              .name("Propiedad1")
+              .name("property 1")
+                  .minValue(MIN_VALUE)
+                  .maxValue(MAX_VALUE)
               .typeValue(TypeValue.INTEGER)
               .build()))
           .build();
@@ -114,7 +131,38 @@ public class GeneratorControllerTest extends AbstractTest {
           .andExpect(status().isOk())
           .andExpect(jsonPath("$", hasSize(1)))
           .andExpect(jsonPath(pathProperty).exists())
-          .andExpect(jsonPath(pathProperty).isNumber());
+          .andExpect(jsonPath(pathProperty).isNumber())
+          .andExpect(jsonPath(pathProperty,greaterThanOrEqualTo(MIN_VALUE)))
+          .andExpect(jsonPath(pathProperty,lessThan(MAX_VALUE)));
+    }
+    @Test
+    void OnePropertyIntegerOnlyMaxValue() throws Exception {
+      var MAX_VALUE=10;
+      var request = StructRequest
+          .builder()
+          .properties(List.of(PropertyRequest
+              .builder()
+              .name("property 1")
+              .maxValue(MAX_VALUE)
+              .typeValue(TypeValue.INTEGER)
+              .build()))
+          .build();
+      var requestJson = objectMapper.writeValueAsString(request);
+
+      var pathProperty = String.format("$[0].%s", request.getProperties().get(0).getName());
+
+      mvc.perform(
+              post(URI)
+                  .contentType(MediaType.APPLICATION_JSON)
+                  .content(requestJson)
+          )
+          .andDo(print())
+          .andExpect(status().isOk())
+          .andExpect(jsonPath("$", hasSize(1)))
+          .andExpect(jsonPath(pathProperty).exists())
+          .andExpect(jsonPath(pathProperty).isNumber())
+          .andExpect(jsonPath(pathProperty,greaterThanOrEqualTo(1)))
+          .andExpect(jsonPath(pathProperty,lessThan(MAX_VALUE)));
     }
 
     @Test

@@ -3,7 +3,7 @@ package com.silva.datagenerator.domain.service.implementation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.silva.datagenerator.domain.dto.StructRequest;
 import com.silva.datagenerator.domain.service.GeneratorService;
-import core.DataGeneratorGo;
+import com.silva.datagenerator.core.DataGeneratorGo;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 

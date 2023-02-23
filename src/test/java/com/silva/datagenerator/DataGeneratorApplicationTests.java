@@ -4,19 +4,25 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.silva.datagenerator.controller.StringController;
+import org.springframework.context.ApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class DataGeneratorApplicationTests {
 
-@Autowired
-StringController controller;
+  @Autowired
+  ApplicationContext context;
 
-	@Test
-	void contextLoads() {
-	 assertThat(controller).isNotNull();
-	}
+  @Test
+  void contextLoads() {
+    assertThat(context).isNotNull();
+  }
+
+  @Test
+  void main() {
+    DataGeneratorApplication.main(new String[]{});
+    assertThat(context).isNotNull();
+  }
 
 }

@@ -1,9 +1,9 @@
-package core;
+package com.silva.datagenerator.core;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.silva.datagenerator.domain.dto.StructRequest;
-import core.generator.implementation.GeneratorSubStruct;
+import com.silva.datagenerator.core.generator.implementation.GeneratorSubStruct;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

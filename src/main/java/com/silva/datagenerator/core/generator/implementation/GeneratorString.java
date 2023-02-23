@@ -1,7 +1,7 @@
-package core.generator.implementation;
+package com.silva.datagenerator.core.generator.implementation;
 
 import com.silva.datagenerator.domain.dto.PropertyRequest;
-import core.generator.GeneratorData;
+import com.silva.datagenerator.core.generator.GeneratorData;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Random;

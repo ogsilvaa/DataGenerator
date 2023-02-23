@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class GeneratorController {
   private final GeneratorService generatorService;
   @GetMapping()
-  String funciona() {
-    return "funciona!!";
+  String works() {
+    return "works!!";
   }
 
   @PostMapping(

@@ -1,4 +1,4 @@
-package core.generator;
+package com.silva.datagenerator.core.generator;
 
 import com.silva.datagenerator.domain.dto.PropertyRequest;
 

@@ -1,10 +1,10 @@
-package core.generator.implementation;
+package com.silva.datagenerator.core.generator.implementation;
 
+import com.silva.datagenerator.core.generator.GeneratorData;
 import com.silva.datagenerator.domain.dto.ListValueRequest;
 import com.silva.datagenerator.domain.dto.PropertyRequest;
 import com.silva.datagenerator.domain.dto.StructRequest;
 import com.silva.datagenerator.domain.dto.TypeValue;
-import core.generator.GeneratorData;
 
 import java.util.*;
 import java.util.stream.IntStream;

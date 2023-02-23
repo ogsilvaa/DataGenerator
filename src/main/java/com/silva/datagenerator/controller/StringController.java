@@ -20,14 +20,14 @@ public class StringController {
     return generatorService.generateString(i);
   }
 
-  @GetMapping("/lista")
+  @GetMapping("/list")
   String generateString(
       @RequestParam(value = "values") String[] values
   ) {
     return generatorService.generateString(Arrays.stream(values).collect(Collectors.toList()));
   }
-  @PostMapping("/lista")
-  String generateString(@RequestBody List<String> lista){
-    return generatorService.generateString(lista);
+  @PostMapping("/list")
+  String generateString(@RequestBody List<String> list){
+    return generatorService.generateString(list);
   }
 }
