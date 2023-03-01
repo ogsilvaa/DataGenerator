@@ -4,19 +4,20 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.silva.datagenerator.domain.dto.StructRequest;
 import com.silva.datagenerator.domain.service.GeneratorService;
 import core.DataGeneratorGo;
+import java.util.List;
+import java.util.Random;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Random;
+
 
 @Service
 class StringGeneratorServiceImp implements GeneratorService {
   Random rdn = new Random();
 
   @Override
-  public String generateString(Integer i) {
-    while (i == null || i <= 0) {
+  public String generateString(int i) {
+    if (i <= 0) {
       i = rdn.nextInt(10);
     }
     return RandomStringUtils.random(i, true, false);

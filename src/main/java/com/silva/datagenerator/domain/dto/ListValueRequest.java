@@ -1,16 +1,16 @@
 package com.silva.datagenerator.domain.dto;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
-@Data
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
+@Getter
 public class ListValueRequest {
   private String name;
   private List<Object> values;

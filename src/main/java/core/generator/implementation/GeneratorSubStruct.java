@@ -5,12 +5,16 @@ import com.silva.datagenerator.domain.dto.PropertyRequest;
 import com.silva.datagenerator.domain.dto.StructRequest;
 import com.silva.datagenerator.domain.dto.TypeValue;
 import core.generator.GeneratorData;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 public class GeneratorSubStruct implements GeneratorData {
-  static Random rdn= new Random();
+  static Random rdn = new Random();
 
   private static final Map<TypeValue, GeneratorData> generateByType = Map.of(
       TypeValue.INTEGER, new GeneratorInteger(),
@@ -20,7 +24,7 @@ public class GeneratorSubStruct implements GeneratorData {
 
   @Override
   public Object generate(PropertyRequest property) {
-   return go(property.getSubStructure());
+    return go(property.getSubStructure());
   }
 
   public static List<Object> go(StructRequest structRequest) {
@@ -33,14 +37,18 @@ public class GeneratorSubStruct implements GeneratorData {
   private static Map<String, Object> generateRepeat(StructRequest struct) {
     var obj = new HashMap<String, Object>();
     if (!Objects.isNull(struct.getListValues())) {
-      struct.getProperties().stream()
+      struct
+          .getProperties()
+          .stream()
           .filter(x -> !Objects.isNull(x.getNameList()))
           .forEach(prop -> obj.put(
               prop.getName(),
               generatePropertyFromList(prop, struct.getListValues()))
           );
     }
-    struct.getProperties().stream()
+    struct
+        .getProperties()
+        .stream()
         .filter(x -> Objects.isNull(x.getNameList()))
         .forEach(x ->
             obj.put(x.getName(),
@@ -50,7 +58,9 @@ public class GeneratorSubStruct implements GeneratorData {
     return obj;
   }
 
-  private static Object generatePropertyFromList(PropertyRequest prop, List<ListValueRequest> listValues) {
+  private static Object generatePropertyFromList(
+      PropertyRequest prop,
+      List<ListValueRequest> listValues) {
     var list = listValues.stream()
         .filter(y -> y.getName().equals(prop.getNameList()))
         .findFirst()

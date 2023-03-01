@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DataGeneratorGo {
   final StructRequest config;
+
   public String generate() throws JsonProcessingException {
     var result = GeneratorSubStruct.go(this.config);
     return new ObjectMapper().writeValueAsString(result);

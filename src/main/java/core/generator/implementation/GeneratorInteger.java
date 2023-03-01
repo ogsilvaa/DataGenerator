@@ -2,11 +2,11 @@ package core.generator.implementation;
 
 import com.silva.datagenerator.domain.dto.PropertyRequest;
 import core.generator.GeneratorData;
-
 import java.util.Random;
 
 public class GeneratorInteger implements GeneratorData {
-  Random rdn= new Random();
+  Random rdn = new Random();
+
   @Override
   public Object generate(PropertyRequest property) {
     if (property.getMaxValue() != null) {
