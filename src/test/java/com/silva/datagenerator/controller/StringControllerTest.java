@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = DataGeneratorApplication.class)
 class StringControllerTest extends AbstractTest {
-  private final String LIST_URI = "/string/list";
+  private static final String LIST_URI = "/string/list";
   private final ObjectMapper objectMapper = new ObjectMapper();
 
   @Test

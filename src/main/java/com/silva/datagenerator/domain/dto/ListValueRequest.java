@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @Getter
-public class ListValueRequest {
+public class ListValueRequest<T> {
   private String name;
-  private List<Object> values;
+  private List<T> values;
 }

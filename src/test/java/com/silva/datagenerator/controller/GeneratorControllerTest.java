@@ -7,14 +7,13 @@ import com.silva.datagenerator.domain.dto.PropertyRequest;
 import com.silva.datagenerator.domain.dto.StructRequest;
 import com.silva.datagenerator.domain.dto.TypeValue;
 import com.silva.datagenerator.util.AbstractTest;
+import java.util.List;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -25,10 +24,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = DataGeneratorApplication.class)
 public class GeneratorControllerTest extends AbstractTest {
-  final String URI = "/generator/generate";
+  static final String URI = "/generator/generate";
   final ObjectMapper objectMapper = new ObjectMapper();
-  final ListValueRequest NOMBRES = ListValueRequest
-      .builder()
+  final ListValueRequest<String> NOMBRES = ListValueRequest
+      .<String>builder()
       .name("nombres")
       .values(List.of(
           "Analí",
