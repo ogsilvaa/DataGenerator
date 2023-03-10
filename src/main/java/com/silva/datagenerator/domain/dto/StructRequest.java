@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StructRequest {
   private List<PropertyRequest> properties;
-  private List<ListValueRequest> listValues;
+  private List<ListValueRequest<?>> listValues;
   private Integer quantity = 1;
 }

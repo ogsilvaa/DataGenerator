@@ -60,7 +60,7 @@ public class GeneratorSubStruct implements GeneratorData {
 
   private static Object generatePropertyFromList(
       PropertyRequest prop,
-      List<ListValueRequest> listValues) {
+      List<ListValueRequest<?>> listValues) {
     var list = listValues.stream()
         .filter(y -> y.getName().equals(prop.getNameList()))
         .findFirst()

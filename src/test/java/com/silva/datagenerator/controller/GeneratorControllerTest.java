@@ -8,6 +8,8 @@ import com.silva.datagenerator.domain.dto.StructRequest;
 import com.silva.datagenerator.domain.dto.TypeValue;
 import com.silva.datagenerator.util.AbstractTest;
 import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -242,6 +245,45 @@ public class GeneratorControllerTest extends AbstractTest {
           .andExpect(jsonPath("$[0].propiedad_de_cadena").isString())
           .andExpect(jsonPath("$[0].propiedad_entero").isNumber())
           .andExpect(jsonPath("$[0].propiedad_de_una_lista").isString())
+      ;
+    }
+  }
+  @Nested
+  class StringMinMax{
+    StructRequest request;
+    @BeforeEach
+    void beforeEach(){
+      var prop= PropertyRequest
+          .builder()
+          .name("propertyA")
+          .typeValue(TypeValue.STRING)
+          .build();
+      request= StructRequest
+          .builder()
+          .quantity(3)
+          .properties(List.of(prop))
+          .build();
+    }
+    @Test
+    void minNullMaxNull_isOk() throws Exception {
+      var requestJson = objectMapper.writeValueAsString(request);
+      mvc.perform(
+              post(URI)
+                  .contentType(MediaType.APPLICATION_JSON)
+                  .content(requestJson)
+          )
+          .andDo(print())
+          .andExpect(status().isOk())
+          .andExpect(jsonPath("$", hasSize(3)))
+          .andExpect(jsonPath("$[0].property_a").exists())
+          .andExpect(jsonPath("$[1].property_a").exists())
+          .andExpect(jsonPath("$[2].property_a").exists())
+          .andExpect(result->{
+            var json = result.getResponse().getContentAsString();
+            var obj= objectMapper.readTree(json);
+            var count=obj.get(2).get("property_a").textValue().length();
+            assertTrue("OK", count<=10);
+          })
       ;
     }
   }

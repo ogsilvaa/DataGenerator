@@ -63,7 +63,7 @@ class ObjectMapperTest {
 
     var result = objectMapper.writeValueAsString(prueba);
 
-    assertEquals("{\"propiedad\":\"Valor de Prueba\",\"interno\":{\"propiedadInterna\":\"Valor Interno\"}}", result);
+    assertEquals("{\"propiedad\":\"Valor de Prueba\",\"interno\":{\"propiedadInterna\":\"Valor Interno\"},\"lista\":[\"Alfa\",\"Beta\",\"Gamma\"]}", result);
   }
 
   @Test
@@ -87,7 +87,7 @@ class ObjectMapperTest {
 
     var result = objectMapper.writeValueAsString(prueba);
 
-    assertEquals("{\"propiedad\":\"Valor de Prueba\",\"interno\":{\"propiedadInterna\":\"Valor Interno\"}}", result);
+    assertEquals("{\"propiedad\":\"Valor de Prueba\",\"interno\":{\"propiedadInterna\":\"Valor Interno\"},\"lista\":[\"Alfa\",\"Beta\",\"Gamma\"],\"listaCompleja\":[{\"propiedadInterna\":\"Valor A\"},{\"propiedadInterna\":\"Valor B\"},{\"propiedadInterna\":\"Valor C\"}]}", result);
   }
 
   @Test

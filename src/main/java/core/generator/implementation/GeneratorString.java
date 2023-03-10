@@ -10,6 +10,19 @@ public class GeneratorString implements GeneratorData {
 
   @Override
   public Object generate(PropertyRequest property) {
-    return RandomStringUtils.random(rdn.nextInt(10), true, false);
+    var min = property.getMinValue();
+    var max = property.getMaxValue();
+    var length = 0;
+
+    if (min == null) {
+      min = 0;
+    }
+    if (max == null) {
+      max = min+10;
+    }
+
+    length = rdn.nextInt(max-min)+min;
+
+    return RandomStringUtils.random(length, true, false);
   }
 }
